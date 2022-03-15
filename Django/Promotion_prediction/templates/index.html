@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Employee Promotion prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <title>Lip Read</title>
+<style media="screen">
+body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100vh;
+    background-image: url("https://i.imgur.com/GMmCQHC.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%
+}
+
+.card {
+    padding: 30px 40px;
+
+    border: none !important;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2)
+}
+
+.blue-text {
+    color: #00BCD4
+}
+
+.form-control-label {
+    margin-bottom: 0
+}
+
+input,
+textarea,
+button {
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300
+}
+
+input:focus,
+textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #00BCD4;
+    outline-width: 0;
+    font-weight: 400
+}
+
+.btn-block {
+    text-transform: uppercase;
+    font-size: 15px !important;
+    font-weight: 400;
+    height: 43px;
+    cursor: pointer
+}
+
+.btn-block:hover {
+    color: #fff !important
+}
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+  </head>
+  <body>
+    <div class="container-fluid px-1 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-9 col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <h5 class="text-center mb-4">Employee Promotion Prediction</h5>
+                <form class="form-card" method="POST" action="{% url 'index' %}">
+                  {% csrf_token %}
+                    <div class="row justify-content-between text-left">
+                      <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">EmployeeId</label> {{ form.employeeId}} </div>
+                      <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Age</label> {{ form.age}}</div>
+                      <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Length of service<span class="text-danger"> *</span></label> {{ form.length_of_service}} </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                      <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Average training score <span class="text-danger"> *</span></label>{{ form.avg_training_score}} </div>
+                        <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Education<span class="text-danger"> *</span></label> {{ form.education}} </div>
+                        <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Department<span class="text-danger"> *</span></label> {{ form.department}}</div>
+                      </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Gender<span class="text-danger"> *</span></label> {{ form.gender}} </div>
+                        <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">No of trainings<span class="text-danger"> *</span></label> {{ form.no_of_trainings}} </div>
+                        <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Recruitment channel<span class="text-danger"> *</span></label>{{ form.recruitment_channel}}</div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Award won<span class="text-danger"> *</span></label> {{ form.awards_won}} </div>
+                        <div class="form-group col-sm-3 flex-column d-flex"> <label class="form-control-label px-3">Previous years rating<span class="text-danger"> *</span></label> {{ form.previous_year_rating}} </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                      <div class="form-group col-sm-6 flex-column d-flex">
+                      <label class="form-control-label px-3">Algorithm<span class="text-danger"> *</span></label>
+                      <select class="form-control" id="Algorithm" name="Algorithm">
+                        <option value="all">All</option>
+                        <option value="DecisionTree">Decision Trees</option>
+                        <option value="KMeansClustering">K Means Clustering</option>
+                        <option value="LogisticRegression">Logistic Regression</option>
+                        <option value="KNN">K Nearest Neighbors</option>
+                        <option value="SupportVectorMachine">Support Vector Machines</option>
+                      </select>
+                    </div>
+                    </div>
+
+
+                    <div class="row justify-content-end">
+                        <div class="form-group col-sm-6"> <input class="btn-block btn-primary" type="submit" value="Preditct"> </div>
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+    
+</div>
+<button hidden id="show-modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table id="customers">
+          <tr>
+            <th>Algorithm</th>
+            <th>Prediction</th>
+          </tr>
+          {% for alg, pred in prediction.items %}
+      
+          <tr>
+            <td>{{alg}}</td>
+            <td><b>{{ pred }}</b></td>
+          </tr>
+      {% endfor %}   
+        </table>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+ 
+  var btn=document.getElementById('show-modal');
+  {% if prediction %}
+  btn.click();
+  {% endif %}
+</script>
+</html><!-- MultiStep Form -->
